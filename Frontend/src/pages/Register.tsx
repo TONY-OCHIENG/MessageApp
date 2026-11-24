@@ -31,6 +31,13 @@ const Register = () => {
         const { success, message} = await registerAccount(details)
         if (success) {
             toast.success(message)
+            setDetails({
+                firstName:"",
+                lastName:"",
+                email:"",
+                password:"",
+                confirmPassword:""
+            })
         }
     } 
   return (
