@@ -1,8 +1,9 @@
-import { Eye } from 'lucide-react'
+import { Eye, EyeClosed, EyeOff } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
 const Register = () => {
+    const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [details, setDetails] = useState<RegistrationDetails>({
         firstName:"",
         lastName:"",
@@ -28,22 +29,27 @@ const Register = () => {
                     <p className="text-sm text-gray-500">Start chatting in less than a minute</p>
                 </div>
                 <label htmlFor="firstName" className="text-gray-900">First name</label>
-                <input type="text" required name='firstName' placeholder='your first name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
+                <input type="text" required name='firstName' value={String(details.firstName)} onChange={handleValueChange} placeholder='your first name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/>     
                  <label htmlFor="lastName"  className="text-gray-900">Last name</label>
-                <input type="text" required name='lastName' placeholder='your last name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
+                <input type="text" required name='lastName' value={String(details.lastName)} onChange={handleValueChange} placeholder='your last name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/>      
                  <label htmlFor="email" className="text-gray-900">Email</label>
-                <input type="email" required name='email' placeholder='your@gmail.com' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
+                <input type="email" required name='email' value={String(details.email)} onChange={handleValueChange} placeholder='your@gmail.com' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/> 
                 <div className="w-full flex justify-between items-center">
                     <label htmlFor="password" className="text-gray-900 w-full justify-between">Password</label>
-                    <Eye className='h-4 w-4 cursor-pointer mr-2'/>
+                    <div onClick={() => setshowPassword(!showpassword)}>
+                        {
+                            showpassword ? <EyeOff className='h-4 w-4 cursor-pointer mr-2'/> :
+                            <Eye className='h-4 w-4 cursor-pointer mr-2'/>
+                        }
+                    </div>        
                 </div>      
-                <input type="password" required name='password' placeholder="At least 8 characters" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
+                <input type={showpassword ? "text" : "password"} required name='password' value={String(details.password)} onChange={handleValueChange} placeholder="At least 8 characters" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/> 
                  <label htmlFor="confirmPassword" className="text-gray-900">Confirm password</label>
-                <input type="password" name='confirmPassword' placeholder="Repeat your password" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
+                <input type={showpassword ? "text" : "password"} required name='confirmPassword' value={String(details.confirmPassword)} onChange={handleValueChange} placeholder="Repeat your password" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/>   
                 <div className='flex gap-2'>
                     <input type="checkbox" className='text-indigo-600' />
