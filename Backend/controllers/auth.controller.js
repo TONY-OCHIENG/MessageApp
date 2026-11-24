@@ -15,12 +15,17 @@ export const registerAccount = (request,response) => {
         return response.status(400).json({success: false, message: "Enter a valid name"})
     }
 
-      //validating email using regex
+    //validating email using regex
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!regex.test(email)) {
-        return response.status(200).json({
+        return response.status(400).json({
             success: false,
             message:"Enter a valid email"
         })
+    }
+
+    //validating password
+    if (password.length < 8) {
+        return response.status(400).json({success: false, message: "Password must be at least 8 characters long"})
     }
 }
