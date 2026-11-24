@@ -1,7 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import database from './database/db.js'
 import authRouter from './routes/auth.routes.js'
 
 const app = express()
@@ -14,7 +13,6 @@ app.use(cors({
 }))
 app.use("/api/v1",authRouter)
 
-app.listen(3000,() => {
+app.listen(process.env.PORT,() => {
     console.log("Server is running")
-    database
 })
