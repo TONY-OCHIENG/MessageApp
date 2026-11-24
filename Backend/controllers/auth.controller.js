@@ -31,4 +31,11 @@ export const registerAccount = (request,response) => {
     }
 
     const hpassword = hashPassword(password)
+
+    try {
+        
+    } catch (error) {
+      console.log("Error in registerAccount controller", error.message);
+      response.status(500).json({ success: false, message: "Internal Server Error" });
+    }
 }
