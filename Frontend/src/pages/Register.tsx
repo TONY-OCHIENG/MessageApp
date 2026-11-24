@@ -58,7 +58,7 @@ const Register = () => {
                     <input type="checkbox"   checked={isChecked}  onChange={(e) => setIschecked(e.target.checked)} className='outline-none text-indigo-600' />
                     <p className='text-sm text-gray-500' >I agree to the <span className='text-indigo-600 underline cursor-pointer'>Terms of service</span> and <span className='text-indigo-600 underline cursor-pointer'>Privacy Policy</span></p>
                 </div>   
-                <button className='w-full py-2 bg-indigo-700 text-white cursor-pointer
+                <button disabled={!isChecked} className='w-full disabled:opacity-50 py-2 bg-indigo-700 text-white cursor-pointer
                 font-extrabold mt-4 rounded-md'>Create Account</button>  
                 <p className='text-center mt-4 text-gray-600 text-xs'>Already have an Account? <Link className='text-indigo-600' to={"/login"}>Login</Link></p>  
             </form>
