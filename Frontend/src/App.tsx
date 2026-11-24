@@ -1,16 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from "react-router-dom"
-import Register from "./pages/Register"
-import Login from "./pages/Login"
-import Chat from "./pages/Chat"
+import Loader from './components/Loader'
+
+// Each page is loaded only when the user navigates to it
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Chat = lazy(() => import('./pages/Chat'))
 
 const App = () => {
   return (
     <div>
+      <Suspense fallback={<Loader/>}>
       <Routes>
        <Route path="/Register" element={<Register/>}/>
        <Route path="/login" element={<Login/>}/>
        <Route path="/" element={<Chat/>}/>  
-      </Routes>       
+      </Routes>      
+      </Suspense> 
     </div>
   )
 }

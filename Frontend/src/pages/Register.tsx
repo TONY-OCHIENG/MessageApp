@@ -1,4 +1,4 @@
-import { Eye, EyeClosed, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
