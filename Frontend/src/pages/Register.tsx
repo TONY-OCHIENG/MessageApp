@@ -3,6 +3,7 @@ import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
 import { authStore } from '../store/authStore'
+import toast from 'react-hot-toast'
 const Register = () => {
     const { registerAccount } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
@@ -29,7 +30,9 @@ const Register = () => {
         event.preventDefault()
         const { success, message} = await registerAccount(details)
         if (success) {
-            
+            toast.success(message)
+        } else {
+            toast.error(message)
         }
     } 
   return (
