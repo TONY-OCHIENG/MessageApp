@@ -1,4 +1,5 @@
-import { hashPassword } from "../lib/hashPassword"
+import database from "../database/db.js"
+import { hashPassword } from "../lib/hashPassword.js"
 
 export const registerAccount = (request,response) => {
     const { firstName, lastName, email, password, confirmPassword} = request.body
@@ -33,7 +34,11 @@ export const registerAccount = (request,response) => {
     const hpassword = hashPassword(password)
 
     try {
-        
+        const registerAccount = "INSERT INTO users(firstName,lastName,email,password) VALUES(?,?,?,?)"
+        database.query(registerAccount,[firstName,lastName,email,hpassword], (error,result) => {
+            if (error) return response.status(500).json({success: false, message: "Internal server error"})
+            return response.status(201).json({success: true, message: "Account created successfully"})
+        })        
     } catch (error) {
       console.log("Error in registerAccount controller", error.message);
       response.status(500).json({ success: false, message: "Internal Server Error" });
