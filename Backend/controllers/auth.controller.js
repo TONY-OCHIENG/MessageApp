@@ -1,3 +1,4 @@
+import { hashPassword } from "../lib/hashPassword"
 
 export const registerAccount = (request,response) => {
     const { firstName, lastName, email, password, confirmPassword} = request.body
@@ -28,4 +29,6 @@ export const registerAccount = (request,response) => {
     if (password.length < 8) {
         return response.status(400).json({success: false, message: "Password must be at least 8 characters long"})
     }
+
+    const hpassword = hashPassword(password)
 }
