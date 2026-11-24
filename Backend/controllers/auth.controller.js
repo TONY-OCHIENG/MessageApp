@@ -46,12 +46,7 @@ export const registerAccount = (request,response) => {
                     return response.status(201).json({success: true, message: "Account created successfully"})
                 })                     
             }
-        })
-        const registerAccount = "INSERT INTO users(firstName,lastName,email,password) VALUES(?,?,?,?)"
-        database.query(registerAccount,[firstName,lastName,email,hpassword], (error,result) => {
-            if (error) return response.status(500).json({success: false, message: "Internal server error"})
-            return response.status(201).json({success: true, message: "Account created successfully"})
-        })        
+        })     
     } catch (error) {
       console.log("Error in registerAccount controller", error.message);
       response.status(500).json({ success: false, message: "Internal Server Error" });
