@@ -14,6 +14,5 @@ export interface Response{
 }
 
 export interface Registration{
-    details: RegistrationDetails[],
-    registerAccount: (details: RegistrationDetails[]) => Promise<Response>
+    registerAccount: (details: RegistrationDetails) => Promise<Response>
 }
