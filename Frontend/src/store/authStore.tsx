@@ -10,5 +10,5 @@ export const authStore = create<Registration>()(
       const { success, message } = response.data
       return { success, message }
     },
-  }))
+  }),{name: "registerAccount"})
 )

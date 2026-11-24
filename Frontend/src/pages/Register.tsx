@@ -2,7 +2,9 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
+import { authStore } from '../store/authStore'
 const Register = () => {
+    const { registerAccount } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const [details, setDetails] = useState<RegistrationDetails>({
@@ -11,9 +13,7 @@ const Register = () => {
         email:"",
         password:"",
         confirmPassword:""
-    })
-
-  
+    })  
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -22,6 +22,16 @@ const Register = () => {
             [name] : value
         }))
     }
+
+    //A function that submits new user details to the database
+
+    const handleSubmit = async (event: ChangeEvent): Promise<void> => {
+        event.preventDefault()
+        const { success, message} = await registerAccount(details)
+        if (success) {
+            
+        }
+    } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
         <div className="bg-stone-100 h-full lg:w-[50%] p-4
