@@ -1,11 +1,11 @@
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
 import { authStore } from '../store/authStore'
 import toast from 'react-hot-toast'
 const Register = () => {
-    const { registerAccount } = authStore()
+    const { registerAccount,loader,setLoader } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const [details, setDetails] = useState<RegistrationDetails>({
@@ -28,11 +28,14 @@ const Register = () => {
 
     const handleSubmit = async (event: ChangeEvent): Promise<void> => {
         event.preventDefault()
+        setLoader()
         const { success, message} = await registerAccount(details)
         if (success) {
             toast.success(message)
+            setLoader()
         } else {
             toast.error(message)
+            setLoader()
         }
     } 
   return (
@@ -72,7 +75,9 @@ const Register = () => {
                     <p className='text-sm text-gray-500' >I agree to the <span className='text-indigo-600 underline cursor-pointer'>Terms of service</span> and <span className='text-indigo-600 underline cursor-pointer'>Privacy Policy</span></p>
                 </div>   
                 <button disabled={!isChecked} className='w-full disabled:opacity-50 py-2 bg-indigo-700 text-white cursor-pointer
-                font-extrabold mt-4 rounded-md'>Create Account</button>  
+                font-extrabold mt-4 rounded-md flex justify-center items-center'>{
+                    loader ? <Loader className='animate-spin '/> : "Create account"
+                }</button>  
                 <p className='text-center mt-4 text-gray-600 text-xs'>Already have an Account? <Link className='text-indigo-600' to={"/login"}>Login</Link></p>  
             </form>
         </div>
