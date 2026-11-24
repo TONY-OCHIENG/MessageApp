@@ -14,7 +14,7 @@ export interface Response{
 }
 
 export interface Registration{
-    loader: boolean,
-    setLoader: () => Promise<void>,
+    loader: boolean
+    setLoader: (value: boolean) => void
     registerAccount: (details: RegistrationDetails) => Promise<Response>
 }

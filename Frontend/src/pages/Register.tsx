@@ -5,7 +5,7 @@ import type { RegistrationDetails } from '../types/types'
 import { authStore } from '../store/authStore'
 import toast from 'react-hot-toast'
 const Register = () => {
-    const { registerAccount,loader,setLoader } = authStore()
+    const { registerAccount,loader } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const [details, setDetails] = useState<RegistrationDetails>({
@@ -28,21 +28,16 @@ const Register = () => {
 
     const handleSubmit = async (event: ChangeEvent): Promise<void> => {
         event.preventDefault()
-        setLoader()
         const { success, message} = await registerAccount(details)
         if (success) {
             toast.success(message)
-            setLoader()
-        } else {
-            toast.error(message)
-            setLoader()
         }
     } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
         <div className="bg-stone-100 h-full lg:w-[50%] p-4
         flex justify-center items-center">
-            <form action="" className="max-w-md">
+            <form onSubmit={handleSubmit} action="" className="max-w-md">
                 <div className="w-full flex flex-col mb-4">
                     <h1 className="font-extrabold text-gray-800 text-2xl">Create your account</h1>
                     <p className="text-sm text-gray-500">Start chatting in less than a minute</p>
