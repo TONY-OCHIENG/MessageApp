@@ -1,5 +1,5 @@
 import { Eye } from 'lucide-react'
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
 const Register = () => {
@@ -10,6 +10,14 @@ const Register = () => {
         password:"",
         confirmPassword:""
     })
+
+    const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setDetails((prev) => ({
+            ...prev,
+            [name] : value
+        }))
+    }
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
         <div className="bg-stone-100 h-full lg:w-[50%] p-4
