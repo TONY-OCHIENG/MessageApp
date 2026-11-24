@@ -34,6 +34,19 @@ export const registerAccount = (request,response) => {
     const hpassword = hashPassword(password)
 
     try {
+        const checkEmail = "SELECT email FROM users WHERE email = ?"
+        database.query(checkEmail,[email],(err,results) => {
+            if (err) return response.status(500).json({success: false, message: "Internal server error"})
+            if (results.length > 0) {
+                return  response.status(409).json({success: false, message: "email already exists"})
+            } else {
+                const registerAccount = "INSERT INTO users(firstName,lastName,email,password) VALUES(?,?,?,?)"
+                database.query(registerAccount,[firstName,lastName,email,hpassword], (error,result) => {
+                    if (error) return response.status(500).json({success: false, message: "Internal server error"})
+                    return response.status(201).json({success: true, message: "Account created successfully"})
+                })                     
+            }
+        })
         const registerAccount = "INSERT INTO users(firstName,lastName,email,password) VALUES(?,?,?,?)"
         database.query(registerAccount,[firstName,lastName,email,hpassword], (error,result) => {
             if (error) return response.status(500).json({success: false, message: "Internal server error"})
