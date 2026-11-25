@@ -29,6 +29,10 @@ const Login = () => {
         const { success, message} = await loginAccount(details)
         if (success) {
           toast.success(message)
+          setDetails({
+            email:"",
+            password:""
+          })
         }
     } 
   return (

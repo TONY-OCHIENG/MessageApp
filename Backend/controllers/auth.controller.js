@@ -96,7 +96,7 @@ export const loginAccount = (request,response) => {
                         sameSite: "strict",
                         maxAge: 1 * 60 * 1000
                     })) 
-                    return response.status(200).json({message: "Login successfully", accessToken})
+                    return response.status(200).json({success: true, message: "Login successfully", accessToken})
                 } else {
                     return response.status(401).json({success: false, message: "Invalid credentials"})
                 }
