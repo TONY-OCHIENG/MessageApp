@@ -52,3 +52,10 @@ export const registerAccount = (request,response) => {
       response.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
+
+export const loginAccount = (request,response) => {
+    const { email, password} = request.body
+    if (!email || !password) {
+        return response.status(400).json({success: false, message: "Fill all fields"})
+    }
+}
