@@ -2,10 +2,9 @@ import { Eye, EyeOff, Loader } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authStore } from '../store/authStore'
-import toast from 'react-hot-toast'
 import type { LoginDetails } from '../types/types'
 const Login = () => {
-    const { registerAccount,loader } = authStore()
+    const { loader } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -26,18 +25,6 @@ const Login = () => {
 
     const handleSubmit = async (event: ChangeEvent): Promise<void> => {
         event.preventDefault()
-        const { success, message} = await registerAccount(details)
-        if (success) {
-            toast.success(message)
-            setDetails({
-                firstName:"",
-                lastName:"",
-                email:"",
-                password:"",
-                confirmPassword:""
-            })
-            navigate("/")
-        }
     } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
