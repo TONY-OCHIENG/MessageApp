@@ -3,8 +3,9 @@ import { useState, type ChangeEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authStore } from '../store/authStore'
 import type { LoginDetails } from '../types/types'
+import toast from 'react-hot-toast'
 const Login = () => {
-    const { loader } = authStore()
+    const { loader, loginAccount} = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -25,6 +26,10 @@ const Login = () => {
 
     const handleSubmit = async (event: ChangeEvent): Promise<void> => {
         event.preventDefault()
+        const { success, message} = await loginAccount(details)
+        if (success) {
+          toast.success(message)
+        }
     } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
