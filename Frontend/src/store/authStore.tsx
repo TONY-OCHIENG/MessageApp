@@ -44,9 +44,20 @@ export const authStore = create<Registration>()(
         }
       },
       authenticateUser: async (): Promise<ResponseAuth> => {
-        const response = await apiClient.get('/api/v1/authenticate')
-        const { success, user_id} = await response.data
-        return { success, user_id}
+        set({ loader: true })
+        try {
+          const response = await apiClient.get('/api/v1/authenticate')
+          const { success, user_id} = await response.data
+          return { success, user_id }
+        } catch (error) {
+          // 401/403 = not logged in; anything else is a real failure
+          if (axios.isAxiosError(error) && error.response?.status !== 401) {
+            console.error('Authentication check failed:', error)
+          }
+          return { success: false, user_id:""}
+        } finally {
+          set({ loader: false })
+        }
       }
     }),    
     { name: 'registerAccount' }
