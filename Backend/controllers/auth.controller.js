@@ -58,4 +58,13 @@ export const loginAccount = (request,response) => {
     if (!email || !password) {
         return response.status(400).json({success: false, message: "Fill all fields"})
     }
+
+    //validating email using regex
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if (!regex.test(email)) {
+        return response.status(400).json({
+            success: false,
+            message:"Enter a valid email"
+        })
+    }
 }
