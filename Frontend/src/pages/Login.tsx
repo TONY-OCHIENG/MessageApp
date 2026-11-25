@@ -8,7 +8,7 @@ const Login = () => {
     const { loader, loginAccount,authenticateUser} = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
-     const [checking, setChecking] = useState(true)
+    const [checking, setChecking] = useState<boolean>(true)
     const navigate = useNavigate()
     const [details, setDetails] = useState<LoginDetails>({
         email:"",
@@ -27,7 +27,7 @@ const Login = () => {
             setUserId(user_id)
             navigate("/")
           } else {
-            navigate('/login', { replace: true })
+            navigate('/login')
           }
           setChecking(false)
         }
