@@ -1,18 +1,42 @@
 import { Eye, EyeOff, Loader } from 'lucide-react'
-import { useState, type ChangeEvent } from 'react'
+import { useEffect, useState, type ChangeEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authStore } from '../store/authStore'
 import type { LoginDetails } from '../types/types'
 import toast from 'react-hot-toast'
 const Login = () => {
-    const { loader, loginAccount} = authStore()
+    const { loader, loginAccount,authenticateUser} = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
+     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
     const [details, setDetails] = useState<LoginDetails>({
         email:"",
         password:"",       
     })  
+     const [userId, setUserId] = useState<String | null>(null)
+    
+      useEffect(() => {
+        let cancelled = false
+    
+        const handleAuthentication = async () => {
+          const { success, user_id } = await authenticateUser()
+          if (cancelled) return
+    
+          if (success) {
+            setUserId(user_id)
+            navigate("/")
+          } else {
+            navigate('/login', { replace: true })
+          }
+          setChecking(false)
+        }
+    
+        handleAuthentication()
+        return () => {
+          cancelled = true
+        }
+      }, [authenticateUser, navigate])
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
