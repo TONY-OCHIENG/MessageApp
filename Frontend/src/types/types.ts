@@ -8,6 +8,11 @@ export interface RegistrationDetails{
     confirmPassword: string
 }
 
+export interface LoginDetails{
+    email: string,
+    password: string
+}
+
 export interface Response{
     success: boolean,
     message: string

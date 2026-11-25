@@ -44,7 +44,7 @@ const Register = () => {
     } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
-        <div className="bg-stone-100 h-full lg:w-[50%] p-4
+        <div className="bg-stone-100 h-full lg:w-[50%] p-4 w-full
         flex justify-center items-center">
             <form onSubmit={handleSubmit} action="" className="max-w-md">
                 <div className="w-full flex flex-col mb-4">

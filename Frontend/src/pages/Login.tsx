@@ -1,20 +1,17 @@
 import { Eye, EyeOff, Loader } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import type { RegistrationDetails } from '../types/types'
 import { authStore } from '../store/authStore'
 import toast from 'react-hot-toast'
+import type { LoginDetails } from '../types/types'
 const Login = () => {
     const { registerAccount,loader } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
     const navigate = useNavigate()
-    const [details, setDetails] = useState<RegistrationDetails>({
-        firstName:"",
-        lastName:"",
+    const [details, setDetails] = useState<LoginDetails>({
         email:"",
-        password:"",
-        confirmPassword:""
+        password:"",       
     })  
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,24 +36,18 @@ const Login = () => {
                 password:"",
                 confirmPassword:""
             })
-            navigate("/login")
+            navigate("/")
         }
     } 
   return (
     <div className="flex w-full h-[100vh] bg-stone-50 font-serif overflow-hidden">
-        <div className="bg-stone-100 h-full lg:w-[50%] p-4
+        <div className="bg-stone-100 h-full w-full lg:w-[50%] p-4
         flex justify-center items-center">
-            <form onSubmit={handleSubmit} action="" className="max-w-md">
+            <form onSubmit={handleSubmit} action="" className="lg:w-[60%] w-full">
                 <div className="w-full flex flex-col mb-4">
                     <h1 className="font-extrabold text-gray-800 text-2xl">Welcome back</h1>
                     <p className="text-sm text-gray-500">Log in to pic up your conversations</p>
-                </div>
-                <label htmlFor="firstName" className="text-gray-900">First name</label>
-                <input type="text" required name='firstName' value={String(details.firstName)} onChange={handleValueChange} placeholder='your first name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
-                mb-2 text-gray-500 "/>     
-                 <label htmlFor="lastName"  className="text-gray-900">Last name</label>
-                <input type="text" required name='lastName' value={String(details.lastName)} onChange={handleValueChange} placeholder='your last name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
-                mb-2 text-gray-500 "/>      
+                </div>                  
                  <label htmlFor="email" className="text-gray-900">Email</label>
                 <input type="email" required name='email' value={String(details.email)} onChange={handleValueChange} placeholder='your@gmail.com' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/> 
@@ -70,10 +61,7 @@ const Login = () => {
                     </div>        
                 </div>      
                 <input type={showpassword ? "text" : "password"} required name='password' value={String(details.password)} onChange={handleValueChange} placeholder="At least 8 characters" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
-                mb-2 text-gray-500 "/> 
-                 <label htmlFor="confirmPassword" className="text-gray-900">Confirm password</label>
-                <input type={showpassword ? "text" : "password"} required name='confirmPassword' value={String(details.confirmPassword)} onChange={handleValueChange} placeholder="Repeat your password" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
-                mb-2 text-gray-500 "/>   
+                mb-2 text-gray-500 "/>  
                 <div className='flex items-center justify-between'>
                     <div className='flex gap-2'>
                       <input type="checkbox"   checked={isChecked}  onChange={(e) => setIschecked(e.target.checked)} className='outline-none text-indigo-600' />
