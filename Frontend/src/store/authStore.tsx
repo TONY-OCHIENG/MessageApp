@@ -31,14 +31,15 @@ export const authStore = create<Registration>()(
         set({ loader: true})
         try {
           const response = await apiClient.post('/api/v1/login',details)
+          console.log(response.data)
           const { success, message } = await response.data
           return { success, message}
         } catch (error) {
           const message = axios.isAxiosError(error)
-           ? error?.response?.data?.message ?? "Login failed"
-           : "Something went wrong"
-           toast.error(message)   
-           return {success: false, message}       
+            ? error.response?.data?.message ?? 'Login failed'
+            : 'Something went wrong'
+          toast.error(message)
+          return { success: false, message }     
         } finally {
           set({loader: false})
         }
