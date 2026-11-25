@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import type { LoginDetails, Registration, RegistrationDetails, Response } from '../types/types'
+import type { LoginDetails, Registration, RegistrationDetails, Response, ResponseAuth } from '../types/types'
 import { apiClient } from '../lib/ClientURL'
 
 export const authStore = create<Registration>()(
@@ -42,6 +42,11 @@ export const authStore = create<Registration>()(
         } finally {
           set({loader: false})
         }
+      },
+      authenticateUser: async (): Promise<ResponseAuth> => {
+        const response = await apiClient.get('/api/v1/authenticate')
+        const { success, user_id} = await response.data
+        return { success, user_id}
       }
     }),    
     { name: 'registerAccount' }
