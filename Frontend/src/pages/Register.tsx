@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Loader } from 'lucide-react'
 import { useState, type ChangeEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import type { RegistrationDetails } from '../types/types'
 import { authStore } from '../store/authStore'
 import toast from 'react-hot-toast'
@@ -8,6 +8,7 @@ const Register = () => {
     const { registerAccount,loader } = authStore()
     const [showpassword,setshowPassword] = useState<Boolean>(false)
     const [isChecked,setIschecked] = useState<boolean>(false)
+    const navigate = useNavigate()
     const [details, setDetails] = useState<RegistrationDetails>({
         firstName:"",
         lastName:"",
@@ -38,6 +39,7 @@ const Register = () => {
                 password:"",
                 confirmPassword:""
             })
+            navigate("/login")
         }
     } 
   return (
