@@ -74,13 +74,16 @@ const Login = () => {
                  <label htmlFor="confirmPassword" className="text-gray-900">Confirm password</label>
                 <input type={showpassword ? "text" : "password"} required name='confirmPassword' value={String(details.confirmPassword)} onChange={handleValueChange} placeholder="Repeat your password" className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
                 mb-2 text-gray-500 "/>   
-                <div className='flex gap-2'>
-                    <input type="checkbox"   checked={isChecked}  onChange={(e) => setIschecked(e.target.checked)} className='outline-none text-indigo-600' />
-                    <p className='text-sm text-gray-500' >I agree to the <span className='text-indigo-600 underline cursor-pointer'>Terms of service</span> and <span className='text-indigo-600 underline cursor-pointer'>Privacy Policy</span></p>
+                <div className='flex items-center justify-between'>
+                    <div className='flex gap-2'>
+                      <input type="checkbox"   checked={isChecked}  onChange={(e) => setIschecked(e.target.checked)} className='outline-none text-indigo-600' />
+                      <p className='text-sm text-gray-500' >Keep me logged in</p>
+                    </div>
+                    <Link to={""} className='font-extrabold text-sm text-indigo-950'>Forgot Password?</Link>
                 </div>   
-                <button disabled={!isChecked} className='w-full disabled:opacity-50 py-2 bg-indigo-700 text-white cursor-pointer
+                <button className='w-full disabled:opacity-50 py-2 bg-indigo-700 text-white cursor-pointer
                 font-extrabold mt-4 rounded-md flex justify-center items-center'>{
-                    loader ? <Loader className='animate-spin '/> : "Create account"
+                    loader ? <Loader className='animate-spin '/> : "Login"
                 }</button>  
                 <p className='text-center mt-4 text-gray-600 text-xs'>New here? <Link className='text-indigo-600 underline' to={"/register"}>Create an account</Link></p>  
             </form>
