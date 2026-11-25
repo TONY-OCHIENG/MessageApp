@@ -8,13 +8,13 @@ export const accessToken = async (request,response,next) => {
     if (!token) {
         const refreshed = await refreshToken(request, response) // must NOT send a response itself
         if (!refreshed) {
-            return response.status(401).json({ success: false, message: "Unauthorised access" })
+            return response.status(403).json({ success: false, message: "unauthorised access" })
         }
         return next()
      } else {
         jwt.verify(token,process.env.TOKEN_SECRET,(err,decoded) => {
             if (err) {
-                return response.status(200).json({success:false, message:"Access denied"})
+                return response.status(403).json({success:false, message:"Access denied"})
             } else {
                 request.userId = decoded.userId
                 next()
