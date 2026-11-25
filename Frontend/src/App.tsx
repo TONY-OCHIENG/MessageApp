@@ -9,21 +9,33 @@ const Register = lazy(() => import('./pages/Register'))
 const Chat = lazy(() => import('./pages/Chat'))
 
 const App = () => {
-  const [user_id,setUser_id] = useState<String>("")
   const navigate = useNavigate()
   const { authenticateUser } = authStore()
+  const [checking, setChecking] = useState(true)
+  const [userId, setUserId] = useState<String | null>(null)
+
   useEffect(() => {
-    handleAuthentication()
-  },[user_id])
-  const handleAuthentication = async () => {
-    const { success, user_id} = await authenticateUser()
-    if (success) {
-      setUser_id(user_id)
-      navigate("/")
-    } else {
-      navigate('/login')      
+    let cancelled = false
+
+    const handleAuthentication = async () => {
+      const { success, user_id } = await authenticateUser()
+      if (cancelled) return
+
+      if (success) {
+        setUserId(user_id)
+      } else {
+        navigate('/login', { replace: true })
+      }
+      setChecking(false)
     }
-  }
+
+    handleAuthentication()
+    return () => {
+      cancelled = true
+    }
+  }, [authenticateUser, navigate])
+
+  if (checking) return <Loader/>
   return (
     <div>
       <Suspense fallback={<Loader/>}>
