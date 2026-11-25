@@ -48,8 +48,8 @@ const Login = () => {
         flex justify-center items-center">
             <form onSubmit={handleSubmit} action="" className="max-w-md">
                 <div className="w-full flex flex-col mb-4">
-                    <h1 className="font-extrabold text-gray-800 text-2xl">Create your account</h1>
-                    <p className="text-sm text-gray-500">Start chatting in less than a minute</p>
+                    <h1 className="font-extrabold text-gray-800 text-2xl">Welcome back</h1>
+                    <p className="text-sm text-gray-500">Log in to pic up your conversations</p>
                 </div>
                 <label htmlFor="firstName" className="text-gray-900">First name</label>
                 <input type="text" required name='firstName' value={String(details.firstName)} onChange={handleValueChange} placeholder='your first name' className="w-full border-gray-400 border rounded-md p-2 focus:outline-indigo-800
@@ -82,7 +82,7 @@ const Login = () => {
                 font-extrabold mt-4 rounded-md flex justify-center items-center'>{
                     loader ? <Loader className='animate-spin '/> : "Create account"
                 }</button>  
-                <p className='text-center mt-4 text-gray-600 text-xs'>Already have an Account? <Link className='text-indigo-600' to={"/login"}>Login</Link></p>  
+                <p className='text-center mt-4 text-gray-600 text-xs'>New here? <Link className='text-indigo-600 underline' to={"/register"}>Create an account</Link></p>  
             </form>
         </div>
         <div className='w-[50%] flex flex-col hidden lg:block'>
