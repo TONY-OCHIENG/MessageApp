@@ -1,5 +1,6 @@
 import database from "../database/db.js"
 import { comparepassword, hashPassword } from "../lib/hashPassword.js"
+import jwt from 'jsonwebtoken'
 
 export const registerAccount = (request,response) => {
     const { firstName, lastName, email, password, confirmPassword} = request.body
@@ -69,14 +70,32 @@ export const loginAccount = (request,response) => {
     }
 
     try {
-        const fetchingEmail = "SELECT email, password FROM users WHERE email = ?"
+        const fetchingEmail = "SELECT user_id,email, password FROM users WHERE email = ?"
         database.query(fetchingEmail,[email],(error,result) => {
             if (error) return response.status(500).json({success: false, message: "Internal server error"})
             if (result.length > 0) {
                 const pass = result[0].password
+                const user_id = result[0].user_id
                 const hashedPassword = comparepassword(password,pass)
                 if (hashedPassword) {
-                    
+                    const accessToken = jwt.sign({user_id},process.env.TOKEN_SECRET,{expiresIn:'1m'})
+                    const refreshToken = jwt.sign({user_id},process.env.TOKEN_SECRET,{expiresIn:"7d"})
+
+                    response.cookie("refresh",refreshToken,({
+                        httpOnly: true,
+                        secure:process.env.NODE_ENV === "production",
+                        sameSite: "strict",
+                        maxAge: 7 * 24 * 60 * 60 * 1000
+                    }))
+
+                    //storing access token in http only cookie
+
+                    response.cookie("access",accessToken,({
+                        httpOnly: true,
+                        secure:process.env.NODE_ENV === "production",
+                        sameSite: "strict",
+                        maxAge: 1 * 60 * 1000
+                    })) 
                 }
             }  
         })
