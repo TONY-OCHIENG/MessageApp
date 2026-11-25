@@ -67,4 +67,15 @@ export const loginAccount = (request,response) => {
             message:"Enter a valid email"
         })
     }
+
+    try {
+        const fetchingEmail = "SELECT email, password FROM users WHERE email = ?"
+        database.query(fetchingEmail,[email],(error,result) => {
+            if (error) return response.status(500).json({success: false, message: "Internal server error"})
+            
+        })
+    } catch (error) {
+        console.log("Error in loginAccount controller, ", error.message)
+        return response.status(500).json({success: false, message: "Internal server error"})
+    }
 }
