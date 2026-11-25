@@ -1,5 +1,5 @@
 import database from "../database/db.js"
-import { hashPassword } from "../lib/hashPassword.js"
+import { comparepassword, hashPassword } from "../lib/hashPassword.js"
 
 export const registerAccount = (request,response) => {
     const { firstName, lastName, email, password, confirmPassword} = request.body
@@ -72,7 +72,13 @@ export const loginAccount = (request,response) => {
         const fetchingEmail = "SELECT email, password FROM users WHERE email = ?"
         database.query(fetchingEmail,[email],(error,result) => {
             if (error) return response.status(500).json({success: false, message: "Internal server error"})
-            
+            if (result.length > 0) {
+                const pass = result[0].password
+                const hashedPassword = comparepassword(password,pass)
+                if (hashedPassword) {
+                    
+                }
+            }  
         })
     } catch (error) {
         console.log("Error in loginAccount controller, ", error.message)
