@@ -107,3 +107,7 @@ export const loginAccount = (request,response) => {
         return response.status(500).json({success: false, message: "Internal server error"})
     }
 }
+
+export const authenticateUser = (request,response) => {
+    return response.status(200).json({success: true, user_id: request.user_id})
+}

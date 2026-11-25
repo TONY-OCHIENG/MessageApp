@@ -33,6 +33,7 @@ const Login = () => {
             email:"",
             password:""
           })
+          navigate("/")
         }
     } 
   return (
