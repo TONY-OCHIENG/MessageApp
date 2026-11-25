@@ -18,9 +18,16 @@ export interface Response{
     message: string
 }
 
+export interface ResponseAuth{
+  success: boolean,
+  user_id: String
+}
+
 export interface Registration{
     loader: boolean
     setLoader: (value: boolean) => void
     registerAccount: (details: RegistrationDetails) => Promise<Response>,
     loginAccount: (details: LoginDetails) => Promise<Response>
+    authenticateUser: () => Promise<ResponseAuth>
 }
+
