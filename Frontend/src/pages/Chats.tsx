@@ -1,8 +1,41 @@
 import { Lock, MessageCircle, Search, X } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { authStore } from '../store/authStore'
+import Loader from '../components/Loader'
+
 
 const Chats = () => {
     const [newChat,setNewChat] = useState<Boolean>(false)
+    const [user_id,setuser_id] = useState<String | null>(null)
+    const navigate = useNavigate()
+    const { authenticateUser } = authStore()
+    const [checking, setChecking] = useState(true)
+    
+
+    useEffect(() => {
+        let cancelled = false
+
+        const handleAuthentication = async () => {
+        const { success, user_id } = await authenticateUser()
+        if (cancelled) return
+
+        if (success) {
+            setuser_id(user_id)
+        } else {
+            navigate('/login')
+        }
+        setChecking(false)
+        }
+
+        handleAuthentication()
+        return () => {
+        cancelled = true
+        }
+    }, [authenticateUser, navigate])
+
+    if (checking) return <Loader/>
+
   return (
     <div className="flex h-full w-[100%]">
         <div className=" w-[20%] flex flex-col bg-white border-r border-r-gray-200">
