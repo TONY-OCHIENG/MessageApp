@@ -39,7 +39,13 @@ const Register = () => {
                 password:"",
                 confirmPassword:""
             })
-            navigate("/login")
+            try {
+                await import("./Login")
+                navigate("/login")
+            } catch (error) {
+                console.log("error")
+            }
+            
         }
     } 
   return (

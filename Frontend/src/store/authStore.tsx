@@ -10,7 +10,6 @@ export const authStore = create<Registration>()(
     (set) => ({
       loader: false,
       setLoader: (value: boolean) => set({ loader: value }),
-
       registerAccount: async (details: RegistrationDetails): Promise<Response> => {
         set({ loader: true })
         try {
