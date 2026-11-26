@@ -31,3 +31,17 @@ export interface Registration{
     authenticateUser: () => Promise<ResponseAuth>
 }
 
+export interface UserDetails{
+    firstName: string,
+    lastName: string,
+    profile: string,
+    user_id: string,
+}
+
+export interface User{
+    users: UserDetails[],
+    loading: boolean,
+    error: string | null,
+    getusers: (user_id: String) => Promise<void>
+}
+
