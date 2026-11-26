@@ -37,8 +37,10 @@ const Chats = () => {
                     Your conversations are private
                 </span>
             </div>
-           <div className="absolute flex flex-col p-4 bg-white shadow-md rounded-md w-[50%] h-[70vh]">
-            <X className="absolute right-8 cursor-pointer text-gray-600 h-5 w-5"/>
+           <div className={`${newChat ? 'block' : 'hidden'} absolute flex flex-col p-4 bg-white shadow-md rounded-md w-[50%] h-[70vh]`}>
+            <X onClick={() => setNewChat(!newChat)} className="absolute right-5 cursor-pointer text-gray-600 h-5 w-5"/>
+            <hr className="mt-10 text-gray-400"/>
+            <div className="w-full h-[90%] overflow-auto scrollbar-thin mt-4"></div>
            </div>
          </div>
         </div>           
