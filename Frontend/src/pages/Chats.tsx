@@ -1,6 +1,8 @@
-import { Lock, MessageCircle, Search } from "lucide-react"
+import { Lock, MessageCircle, Search, X } from "lucide-react"
+import { useState } from "react"
 
 const Chats = () => {
+    const [newChat,setNewChat] = useState<Boolean>(false)
   return (
     <div className="flex h-full w-[100%]">
         <div className=" w-[20%] flex flex-col bg-white border-r border-r-gray-200">
@@ -21,20 +23,23 @@ const Chats = () => {
            </div>
         </div>
         <div className="w-full h-full">
-         <div className="w-full h-full flex justify-center items-center">
+         <div className="relative w-full h-full flex justify-center items-center">
             <div className="flex flex-col items-center">
                 <img src="/chat-app-icon.png" alt="" className="h-40 w-40"/>
                 <h1 className="text-2xl font-extrabold mt-2 text-gray-600">Select a conversation</h1>
                 <p className="text-gray-400 text-sm text-center">Choose a chat from the list and start chatting, or begin a <br /> 
                   conversation with someone on your team
                 </p>
-                <button className="py-3 px-8 text-sm font-extrabold  rounded-md mt-4 text-white 
+                <button onClick={() => setNewChat(!newChat)} className="py-3 px-8 text-sm font-extrabold  rounded-md mt-4 text-white 
                 cursor-pointer bg-indigo-500">Start a new chat</button>
                 <span className="flex gap-2 mt-4 items-center text-xs text-indigo-900 font-extrabold">
                     <Lock className="text-indigo-600 h-4 w-4"/>
                     Your conversations are private
                 </span>
             </div>
+           <div className="absolute flex flex-col p-4 bg-white shadow-md rounded-md w-[50%] h-[70vh]">
+            <X className="absolute right-8 cursor-pointer text-gray-600 h-5 w-5"/>
+           </div>
          </div>
         </div>           
     </div>
