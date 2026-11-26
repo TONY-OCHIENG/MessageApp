@@ -19,7 +19,7 @@ const Chats = () => {
         const handleAuthentication = async () => {
         const { success, user_id } = await authenticateUser()
         if (cancelled) return
-
+        console.log(user_id)
         if (success) {
             setuser_id(user_id)
         } else {
@@ -35,7 +35,7 @@ const Chats = () => {
     }, [authenticateUser, navigate])
 
     if (checking) return <Loader/>
-
+    console.log(user_id)
   return (
     <div className="flex h-full w-[100%]">
         <div className=" w-[20%] flex flex-col bg-white border-r border-r-gray-200">

@@ -16,7 +16,7 @@ export const accessToken = async (request,response,next) => {
             if (err) {
                 return response.status(403).json({success:false, message:"Access denied"})
             } else {
-                request.userId = decoded.userId
+                request.user_id = decoded.user_id
                 next()
             }
         })
